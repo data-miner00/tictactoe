@@ -3,6 +3,7 @@
 #include <stdbool.h>
 
 int readInt();
+bool isGameOver(int board[3][3]);
 
 int main(void)
 {
@@ -40,37 +41,73 @@ int main(void)
     char playerAvatar = player1Turn ? player1Avatar : player2Avatar;
 
     if (ch == 1) {
+        int selected = board[0][0];
+        if (selected != 0) goto invalid;
       board[0][0] = playerAvatar;
     } else if (ch == 2) {
+        int selected = board[0][1];
+        if (selected != 0) goto invalid;
       board[0][1] = playerAvatar;
     } else if (ch == 3) {
+        int selected = board[0][2];
+        if (selected != 0) goto invalid;
       board[0][2] = playerAvatar;
     } else if (ch == 4) {
+        int selected = board[1][0];
+        if (selected != 0) goto invalid;
       board[1][0] = playerAvatar;
     } else if (ch == 5) {
+        int selected = board[1][1];
+        if (selected != 0) goto invalid;
       board[1][1] = playerAvatar;
     } else if (ch == 6) {
+        int selected = board[1][2];
+        if (selected != 0) goto invalid;
       board[1][2] = playerAvatar;
     } else if (ch == 7) {
+        int selected = board[2][0];
+        if (selected != 0) goto invalid;
       board[2][0] = playerAvatar;
     } else if (ch == 8) {
+        int selected = board[2][1];
+        if (selected != 0) goto invalid;
       board[2][1] = playerAvatar;
     } else if (ch == 9) {
+        int selected = board[2][2];
+        if (selected != 0) goto invalid;
       board[2][2] = playerAvatar;
     } else {
+invalid:
       printf("Invalid move!\n");
       continue;
     }
 
     // while ((ch = getchar()) != '\n' && ch != EOF); // Clears the buffer line
 
+    gameOver = isGameOver(board);
+
     player1Turn = !player1Turn;
   }
+
+    for (int i = 0; i < 3; i++) {
+      for (int j = 0; j < 3; j++) {
+         char displayChar;
+        if (board[i][j] == 0) {
+          displayChar = '.';
+        } else {
+          displayChar = board[i][j];
+        }
+
+        printf("%c ", displayChar);
+      }
+      printf("\n");
+    }
+
     printf("Hello World! Shaun age: %d\n", age);
     return 0;
 }
 
-bool isBoardFull(int** board)
+bool isBoardFull(int board[3][3])
 {
   for (int i = 0; i < 3; i++) {
     for (int j = 0; j < 3; j++) {
@@ -82,12 +119,45 @@ bool isBoardFull(int** board)
   return true;
 }
 
-bool isGameOver(int** board)
+bool isGameOver(int board[3][3])
 {
   if (isBoardFull(board)) {
     return true;
   }
-  // TODO: Check for winner
+
+  // First row
+    if (board[0][0] == board[0][1] && board[0][1] == board[0][2] && board[0][2] != 0) {
+        return true;
+    }
+    
+  // Second row
+  else if (board[1][0] == board[1][1] && board[1][1] == board[1][2] && board[1][2] != 0) {
+        return true;
+    }
+      // Third row
+   else if (board[2][0] == board[2][1] && board[2][1] == board[2][2] && board[2][2] != 0) {
+       return true;
+   }
+       // First column
+     else if (board[0][0] == board[1][0] && board[1][0] == board[2][0] && board[2][0] != 0) {
+         return true;
+     }
+            // Second column
+      else if (board[0][1] == board[1][1] && board[1][1] == board[2][1] && board[2][1] != 0) {
+          return true;
+      }
+          // Third column
+       else if (board[0][2] == board[1][2] && board[1][2] == board[2][2] && board[2][2] != 0) {
+           return true;
+       }
+           // First diagonal    
+     else if (board[0][0] == board[1][1] && board[1][1] == board[2][2] && board[2][2] != 0) {
+         return true;
+     }
+            // Second diagonal
+      else if (board[2][0] == board[1][1] && board[1][1] == board[0][2] && board[0][2] != 0) {
+          return true;
+      }
   return false;
 }
 
