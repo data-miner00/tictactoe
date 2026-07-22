@@ -1,23 +1,41 @@
 #include <stdio.h>
 #include <shaun.h>
 #include <stdbool.h>
+#include <string.h>
+
 
 int readInt();
 bool isGameOver(int board[3][3]);
 
-int main(void) {
+int main(int argc, char *argv[]) {
+    char player1Name[255] = "Player One";
+    char player2Name[255] = "Player Two";
+    // --player1 and --player2 are optional
+    if (argc > 1) {
+        if (strcmp(argv[1], "--player1") == 0) {
+            strcpy(player1Name, argv[2]);
+        } else if (strcmp(argv[1], "--player2") == 0) {
+            strcpy(player2Name, argv[2]);
+        }
+    }
+    if (argc > 3) {
+        if (strcmp(argv[4], "--player1") == 0) {
+            strcpy(player1Name, argv[5]);
+        } else if (strcmp(argv[4], "--player2") == 0) {
+            strcpy(player2Name, argv[5]);
+        }
+    }
+
     int board[3][3] = {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}};
     bool player1Turn = true;
     bool gameOver = false;
-    char player1Name[10] = "Shaun";
-    char player2Name[10] = "Shaun";
     char player1Avatar = 'X';
     char player2Avatar = 'O';
 
     printf("Welcome to Tic Tac Toe!\n");
 
     while (!gameOver) {
-        printf("Player 1 turn: %s\n", player1Turn ? "Yes" : "No");
+        printf("%s's turn (Player %d)\n", player1Turn ? player1Name : player2Name, player1Turn ? 1 : 2);
 
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
@@ -110,7 +128,6 @@ int main(void) {
         printf("\n");
     }
 
-    printf("Hello World! Shaun age: %d\n", age);
     return 0;
 }
 
