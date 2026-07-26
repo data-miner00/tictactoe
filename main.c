@@ -5,7 +5,7 @@
 
 
 int readInt();
-bool isGameOver(int board[3][3]);
+int isGameOver(int board[3][3]);
 
 int main(int argc, char *argv[]) {
     char player1Name[255] = "Player One";
@@ -28,13 +28,13 @@ int main(int argc, char *argv[]) {
 
     int board[3][3] = {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}};
     bool player1Turn = true;
-    bool gameOver = false;
+    int gameOver = 0;
     char player1Avatar = 'X';
     char player2Avatar = 'O';
 
     printf("Welcome to Tic Tac Toe!\n");
 
-    while (!gameOver) {
+    while (gameOver == 0) {
         printf("%s's turn (Player %d)\n", player1Turn ? player1Name : player2Name, player1Turn ? 1 : 2);
 
         for (int i = 0; i < 3; i++) {
@@ -128,6 +128,12 @@ int main(int argc, char *argv[]) {
         printf("\n");
     }
 
+    if (gameOver == 3) {
+        printf("It's a tie!\n");
+    } else {
+        printf("%s wins!\n", gameOver == 'X' ? player1Name : player2Name);
+    }
+
     return 0;
 }
 
@@ -142,45 +148,45 @@ bool isBoardFull(int board[3][3]) {
     return true;
 }
 
-bool isGameOver(int board[3][3]) {
+int isGameOver(int board[3][3]) {
     if (isBoardFull(board)) {
-        return true;
+        return 3;
     }
 
     // First row
     if (board[0][0] == board[0][1] && board[0][1] == board[0][2] && board[0][2] != 0) {
-        return true;
+        return board[0][0];
     }
 
     // Second row
     else if (board[1][0] == board[1][1] && board[1][1] == board[1][2] && board[1][2] != 0) {
-        return true;
+        return board[1][0];
     }
     // Third row
     else if (board[2][0] == board[2][1] && board[2][1] == board[2][2] && board[2][2] != 0) {
-        return true;
+        return board[2][0];
     }
     // First column
     else if (board[0][0] == board[1][0] && board[1][0] == board[2][0] && board[2][0] != 0) {
-        return true;
+        return board[0][0];
     }
     // Second column
     else if (board[0][1] == board[1][1] && board[1][1] == board[2][1] && board[2][1] != 0) {
-        return true;
+        return board[0][1];
     }
     // Third column
     else if (board[0][2] == board[1][2] && board[1][2] == board[2][2] && board[2][2] != 0) {
-        return true;
+        return board[0][2];
     }
     // First diagonal
     else if (board[0][0] == board[1][1] && board[1][1] == board[2][2] && board[2][2] != 0) {
-        return true;
+        return board[0][0];
     }
     // Second diagonal
     else if (board[2][0] == board[1][1] && board[1][1] == board[0][2] && board[0][2] != 0) {
-        return true;
+        return board[2][0];
     }
-    return false;
+    return 0;
 }
 
 int readInt() {
