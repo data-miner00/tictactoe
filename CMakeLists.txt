@@ -18,6 +18,7 @@ add_executable(
 
   # Source of executable
   peripheral.c
+  state.c
   main.c
 )
 
