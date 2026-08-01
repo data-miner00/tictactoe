@@ -17,6 +17,7 @@ add_executable(
   ${PROJECT_NAME}
 
   # Source of executable
+  peripheral.c
   main.c
 )
 
