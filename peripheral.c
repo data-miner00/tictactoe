@@ -1,7 +1,6 @@
 #include <peripheral.h>
 #include <stdio.h>
 
-
 int readInt() {
     int num = 0;
     int ch = getchar();

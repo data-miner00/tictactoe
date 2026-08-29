@@ -5,7 +5,6 @@
 #include <peripheral.h>
 #include <state.h>
 
-
 int main(int argc, char *argv[]) {
     GameState state = {
         .board = {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}},
@@ -36,7 +35,8 @@ int main(int argc, char *argv[]) {
     printf("Welcome to Tic Tac Toe!\n");
 
     while (state.gameOver == 0) {
-        printf("%s's turn (Player %d)\n", state.player1Turn ? state.player1Name : state.player2Name, state.player1Turn ? 1 : 2);
+        printf("%s's turn (Player %d)\n", state.player1Turn ? state.player1Name : state.player2Name,
+               state.player1Turn ? 1 : 2);
 
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {

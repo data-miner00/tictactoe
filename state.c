@@ -16,7 +16,7 @@ int isGameOver(const GameState *state) {
         return 3;
     }
 
-    const int (*board)[3] = state->board;
+    const int(*board)[3] = state->board;
 
     // First row
     if (board[0][0] == board[0][1] && board[0][1] == board[0][2] && board[0][2] != 0) {
