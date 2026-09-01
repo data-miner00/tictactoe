@@ -17,9 +17,9 @@ add_executable(
   ${PROJECT_NAME}
 
   # Source of executable
-  peripheral.c
-  state.c
-  main.c
+  src/peripheral.c
+  src/state.c
+  src/main.c
 )
 
 # Testing

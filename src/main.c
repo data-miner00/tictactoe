@@ -1,9 +1,9 @@
 #include <stdio.h>
-#include "include/shaun.h"
+#include "shaun.h"
 #include <stdbool.h>
 #include <string.h>
-#include "include/peripheral.h"
-#include "include/state.h"
+#include "peripheral.h"
+#include "state.h"
 
 int main(int argc, char *argv[]) {
     GameState state = {
