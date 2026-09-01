@@ -1,7 +1,7 @@
 #include <assert.h>
 #include <stdio.h>
 #include <string.h>
-#include <peripheral.h>
+#include "../include/peripheral.h"
 
 static void test_readInt_simpleDigits(void) {
     char buf[] = "5\n";

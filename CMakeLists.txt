@@ -22,11 +22,7 @@ add_executable(
   main.c
 )
 
-target_include_directories(
-  ${PROJECT_NAME}
-  PUBLIC "include"
-)
-
+# Testing
 enable_testing()
 add_subdirectory(tests)
 

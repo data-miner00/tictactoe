@@ -1,6 +1,6 @@
 #include <assert.h>
 #include <stdio.h>
-#include <state.h>
+#include "../include/state.h"
 
 static GameState emptyState(void) {
     GameState state = {0};

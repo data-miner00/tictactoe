@@ -1,4 +1,4 @@
-#include <peripheral.h>
+#include "include/peripheral.h"
 #include <stdio.h>
 
 int readInt() {

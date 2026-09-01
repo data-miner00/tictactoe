@@ -1,4 +1,4 @@
-#include <state.h>
+#include "include/state.h"
 
 bool isBoardFull(const GameState *state) {
     for (int i = 0; i < 3; i++) {
