@@ -1,5 +1,5 @@
 # basically a command runner
-.PHONY: build run format
+.PHONY: build run format test
 
 build: build/Makefile
 	cmake --build build
@@ -9,6 +9,9 @@ build/Makefile:
 
 run: build
 	./build/TicTacToe
+
+test: build
+	cd build && ctest --output-on-failure
 
 format:
 	find . -path ./build -prune -o \( -name '*.c' -o -name '*.h' \) -print | xargs clang-format -i

@@ -27,3 +27,6 @@ target_include_directories(
   PUBLIC "include"
 )
 
+enable_testing()
+add_subdirectory(tests)
+
