@@ -3,25 +3,24 @@
 #include <string.h>
 #include "../src/peripheral.h"
 
-static void test_readInt_simpleDigits(void) {
-    char buf[] = "5\n";
+static void assertReadInt(const char *input, int expected) {
+    char buf[16];
+    strcpy(buf, input);
     stdin = fmemopen(buf, strlen(buf), "r");
-    assert(readInt() == 5);
+    assert(readInt() == expected);
     fclose(stdin);
+}
+
+static void test_readInt_simpleDigits(void) {
+    assertReadInt("5\n", 5);
 }
 
 static void test_readInt_leadingGarbage(void) {
-    char buf[] = "  \n5";
-    stdin = fmemopen(buf, strlen(buf), "r");
-    assert(readInt() == 5);
-    fclose(stdin);
+    assertReadInt("  \n5", 5);
 }
 
 static void test_readInt_multiDigit(void) {
-    char buf[] = "42";
-    stdin = fmemopen(buf, strlen(buf), "r");
-    assert(readInt() == 42);
-    fclose(stdin);
+    assertReadInt("42", 42);
 }
 
 int main(void) {
