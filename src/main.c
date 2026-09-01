@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include "shaun.h"
 #include <stdbool.h>
 #include <string.h>
 #include "peripheral.h"
