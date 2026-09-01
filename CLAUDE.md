@@ -15,14 +15,18 @@ cmake --build .
 ./TicTacToe
 ```
 
-There is no test suite, linter, or CI configured in this repo.
+Or via the Makefile command runner: `make build`, `make run`, `make test`, `make format` (clang-format over all `.c`/`.h` files, formatted in place per `.clang-format`), `make format-check` (same, but `--dry-run --Werror` — fails instead of rewriting).
+
+There is a small ctest-based test suite under `tests/` (`test_state.c`, `test_peripheral.c`), wired into the root `CMakeLists.txt` via `enable_testing()`/`add_subdirectory(tests)`. Run it with `make test` or `cd build && ctest --output-on-failure`.
+
+CI (`.github/workflows/ci.yml`) runs on every push and pull request: `make format-check`, then configure/build/`ctest` on `ubuntu-latest`. There is no linter beyond clang-format.
 
 ## Architecture
 
-- `main.c` contains everything: game state, input handling, and win-checking logic, all in one translation unit. There is no separation into modules (board, game loop, input) yet — keep this in mind before assuming logic lives in a dedicated file.
+- All source lives flat under `src/` (no separate `include/` dir): `main.c`, `state.c`/`state.h`, `peripheral.c`/`peripheral.h`. Headers are included with quoted relative paths (e.g. `"state.h"` from `src/`, `"../src/state.h"` from `tests/`), not `<angle brackets>` — there's no `target_include_directories` search path set up for project headers.
+- `main.c` handles game state setup, the input/game loop, and board printing; `state.c` holds `isBoardFull`/`isGameOver` (win/tie detection); `peripheral.c` holds `readInt`. These are separate translation units — assume logic lives in the module matching its concern, not all in `main.c`.
 - Board state is `int board[3][3]`, `0` meaning empty and any other value holding a player's avatar char (`'X'`/`'O'`) stored as an int.
-- Moves are entered as 1-9 (not row/col) and mapped to `board[row][col]` via an explicit `if/else` ladder in `main()` rather than arithmetic (e.g. `row = (ch-1)/3`) — so adding board-related features generally means touching this ladder plus the two board-printing loops (one mid-game, one post-game) and `isGameOver`/`isBoardFull` in parallel, since none of these share code today.
+- Moves are entered as 1-9 (not row/col) and mapped to `board[row][col]` via an explicit `if/else` ladder in `main()` rather than arithmetic (e.g. `row = (ch-1)/3`) — so adding board-related features generally means touching this ladder plus the two board-printing loops (one mid-game, one post-game) in `main.c`, since none of these share code today.
 - Invalid moves are handled with a `goto invalid;` jump to a label at the bottom of the input ladder, which then `continue`s the game loop.
 - `readInt()` reads a move directly from stdin char-by-char (skips non-digits, then accumulates digits) rather than using `scanf`.
-- `include/shaun.h` is a personal scratch header (currently just a stray `int age` global used for a debug print at game end) — not part of the game logic.
 - There is currently no AI/computer player; it's local two-player hotseat only.
