@@ -104,12 +104,9 @@ static void test_isGameOver_tie(void) {
     assert(isGameOver(&state) == 3);
 }
 
-// Known bug (state.c): isGameOver checks isBoardFull() before checking for a
-// winning line, so a board that is full AND has a winning row/col/diagonal
-// on the final move is reported as a tie (3) instead of returning the
-// winner. This test encodes the *correct* behavior and is expected to fail
-// until that check order is fixed.
-static void test_isGameOver_winOnFullBoard_knownBug(void) {
+// A winning row/col/diagonal completed on the board's final move must report
+// the winner, not a tie.
+static void test_isGameOver_winOnFullBoard(void) {
     GameState state = emptyState();
     char vals[3][3] = {
         {'X', 'X', 'X'},
@@ -135,7 +132,7 @@ int main(void) {
     test_isGameOver_colWin();
     test_isGameOver_diagWin();
     test_isGameOver_tie();
-    test_isGameOver_winOnFullBoard_knownBug();
+    test_isGameOver_winOnFullBoard();
 
     printf("All state tests passed.\n");
     return 0;
