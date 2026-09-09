@@ -17,6 +17,7 @@ add_executable(
   ${PROJECT_NAME}
 
   # Source of executable
+  src/args.c
   src/peripheral.c
   src/state.c
   src/main.c

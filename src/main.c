@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdbool.h>
-#include <string.h>
+#include "args.h"
 #include "peripheral.h"
 #include "state.h"
 
@@ -15,21 +15,7 @@ int main(int argc, char *argv[]) {
         .player2Name = "Player Two",
     };
 
-    // --player1 and --player2 are optional
-    if (argc > 1) {
-        if (strcmp(argv[1], "--player1") == 0) {
-            strcpy(state.player1Name, argv[2]);
-        } else if (strcmp(argv[1], "--player2") == 0) {
-            strcpy(state.player2Name, argv[2]);
-        }
-    }
-    if (argc > 3) {
-        if (strcmp(argv[4], "--player1") == 0) {
-            strcpy(state.player1Name, argv[5]);
-        } else if (strcmp(argv[4], "--player2") == 0) {
-            strcpy(state.player2Name, argv[5]);
-        }
-    }
+    parseArgs(argc, argv, &state);
 
     printf("Welcome to Tic Tac Toe!\n");
 
