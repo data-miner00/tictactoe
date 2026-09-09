@@ -1,5 +1,5 @@
 # basically a command runner
-.PHONY: build run format format-check test
+.PHONY: build run run-ncurses rn format format-check test
 
 build: build/Makefile
 	cmake --build build
@@ -9,6 +9,11 @@ build/Makefile:
 
 run: build
 	./build/TicTacToe
+
+run-ncurses: build
+	./build/TicTacToeNcurses
+
+rn: run-ncurses
 
 test: build
 	cd build && ctest --output-on-failure

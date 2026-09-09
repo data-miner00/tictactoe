@@ -23,6 +23,26 @@ add_executable(
   src/main.c
 )
 
+find_package(Curses REQUIRED)
+
+add_executable(
+  ${PROJECT_NAME}Ncurses
+
+  src/main_ncurses.c
+  src/args.c
+  src/state.c
+)
+
+target_include_directories(
+  ${PROJECT_NAME}Ncurses
+  PRIVATE ${CURSES_INCLUDE_DIR}
+)
+
+target_link_libraries(
+  ${PROJECT_NAME}Ncurses
+  ${CURSES_LIBRARIES}
+)
+
 # Testing
 enable_testing()
 add_subdirectory(tests)
