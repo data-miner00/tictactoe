@@ -2,6 +2,16 @@
 
 Simple TicTacToe.
 
+## Nix
+
+A `shell.nix` is provided for a reproducible dev environment (cmake, gcc, ncurses, clang-format, gdb):
+
+```
+nix-shell
+```
+
+Then use the `make` commands below as usual inside the shell.
+
 ## Build & Run
 
 1. Build all
