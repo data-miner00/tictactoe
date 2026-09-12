@@ -26,19 +26,25 @@ make build
 make run
 ```
 
-3. Test
+3. TicTacToe TUI
+
+```
+make rn
+```
+
+4. Test
 
 ```
 make test
 ```
 
-4. Format
+5. Format
 
 ```
 make format
 ```
 
-5. Format Check
+6. Format Check
 
 ```
 make check-format
